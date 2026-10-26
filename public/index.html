@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suvico | Emergency Task Scheduler</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brandmark">S</div><div><b>SUVICO</b><small>EMERGENCY TASK SCHEDULER</small></div></div><div class="live"><span></span> LOCAL SYSTEM ONLINE</div></header>
+<main>
+<section class="hero"><div><p class="eyebrow">DISPATCH OVERVIEW</p><h1>Emergency Operations</h1><p class="muted">Prioritize tasks. Coordinate response. Track every action.</p></div><button class="outline" id="refreshBtn">↻ Refresh data</button></section>
+<section class="stats">
+<div class="stat"><span>Total tasks</span><strong id="total">0</strong><small>All recorded incidents</small></div>
+<div class="stat"><span>Pending</span><strong id="pending">0</strong><small>Awaiting assignment</small></div>
+<div class="stat"><span>In progress</span><strong id="inProgress">0</strong><small>Currently active</small></div>
+<div class="stat"><span>Critical pending</span><strong class="danger" id="criticalPending">0</strong><small>Requires immediate review</small></div>
+</section>
+<div class="layout">
+<section class="panel"><div class="panel-head"><div><p class="eyebrow">NEW INCIDENT</p><h2>Create emergency task</h2></div></div>
+<form id="taskForm">
+<label>Task description<input id="title" maxlength="120" required placeholder="e.g. Electrical fire reported"></label>
+<label>Location<input id="location" maxlength="100" placeholder="e.g. Industrial Area"></label>
+<div class="form-row"><label>Severity<select id="severity"><option value="4">Critical</option><option value="3">High</option><option value="2" selected>Medium</option><option value="1">Low</option></select></label>
+<label>Deadline (minutes)<input id="deadline" type="number" min="1" max="10080" value="30" required></label></div>
+<button class="primary" type="submit">＋ Add emergency task</button><p class="hint">Demo data only. Do not enter personal or sensitive information.</p>
+</form></section>
+<section class="panel next-panel"><div class="panel-head"><div><p class="eyebrow">HEAP-BASED SCHEDULER</p><h2>Next recommended task</h2></div><span class="pill">DSA LIVE</span></div>
+<div id="nextTask" class="next-card"><div class="empty">No pending tasks yet.</div></div>
+<button id="nextBtn" class="primary full">Find next task</button>
+<div class="algorithm-note"><b>Priority rule</b><p>Criticality first, then nearest deadline, then earliest arrival. This is a demonstration policy, not a real-world dispatch rule.</p></div></section>
+</div>
+<section class="panel tasks-panel"><div class="panel-head task-head"><div><p class="eyebrow">INCIDENT REGISTER</p><h2>All tasks</h2></div><div class="controls"><input id="searchId" placeholder="Search task ID (e.g. SV1)"><button class="outline" id="searchBtn">Search</button><select id="sort"><option value="priority">Priority order</option><option value="deadline">Deadline</option><option value="arrival">Arrival time</option></select><button class="outline" id="undoBtn">↶ Undo status</button></div></div>
+<div class="table-wrap"><table><thead><tr><th>Task ID</th><th>Emergency</th><th>Location</th><th>Severity</th><th>Deadline</th><th>Status</th><th>Actions</th></tr></thead><tbody id="taskRows"><tr><td colspan="7" class="empty">Loading tasks…</td></tr></tbody></table></div>
+</section>
+<div class="layout bottom-layout">
+<section class="panel"><div class="panel-head"><div><p class="eyebrow">GRAPH ALGORITHM</p><h2>Sample route planner</h2></div></div>
+<div class="form-row"><label>From<select id="routeFrom"></select></label><label>To<select id="routeTo"></select></label></div><button class="primary" id="routeBtn">Calculate shortest route</button><div id="routeResult" class="route-result muted">Choose two locations to calculate a sample route.</div><p class="hint">Dijkstra's algorithm · Illustrative travel minutes, no live traffic.</p></section>
+<section class="panel"><div class="panel-head"><div><p class="eyebrow">UNDER THE HOOD</p><h2>DSA toolkit</h2></div></div><ul class="toolkit"><li><b>Binary max-heap</b><span>Next task · O(log n) insertion/removal</span></li><li><b>Hash table</b><span>Task ID lookup · expected O(1)</span></li><li><b>Stack</b><span>Undo last status change · O(1) stack access</span></li><li><b>Sorting</b><span>Priority/deadline/arrival · O(n log n)</span></li><li><b>Weighted graph</b><span>Dijkstra route search · O((V + E) log V)</span></li></ul></section>
+</div>
+<footer>SuVico · C++ DSA academic prototype · Sample data only</footer>
+</main><div id="toast" role="status"></div><script src="/app.js"></script>
+</body></html>
